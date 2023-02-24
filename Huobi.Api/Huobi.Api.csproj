@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Huobi.Api</PackageId>
+	<Authors>Burak Öner</Authors>
+	<Version>0.0.1</Version>
+	<FileVersion>0.0.1</FileVersion>
+	<PackageVersion>0.0.1</PackageVersion>
+	<AssemblyVersion>0.0.1</AssemblyVersion>
+	<Description>Up-to-date, most-complete, well-organized, easy-to-start, easy-to-use, well-documented, multi-task and multi-thread compatible Huobi Cryptocurrency Exchange Rest and Websocket Api Wrapper.</Description>
+	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<PackageTags>Binance;Coinbase;Kraken;KuCoin;Bitstamp;Gate;Huobi;OKX;Okex;ApiSharp;Api;Sharp;Coin;Token;BNB;BTC;ETH;Bitcoin;Ether;Ethereum;Rest;Web;Socket;Websocket;Stream;Webstream;Api;Client;Wrapper;Connector;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<NeutralLanguage>en</NeutralLanguage>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageReleaseNotes>
+		Version 0.0.1 - 23 Feb 2023
+	</PackageReleaseNotes>
+	<PackageIcon>Huobi.png</PackageIcon>
+	<PackageIconUrl />
+	<PackageProjectUrl>https://github.com/burakoner/Huobi.Api</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/burakoner/Huobi.Api</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<None Include="Huobi.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\RestApi\Futures\" />
+    <Folder Include="Models\RestApi\Margin\" />
+    <Folder Include="Models\RestApi\Options\" />
+    <Folder Include="Models\StreamApi\Futures\" />
+    <Folder Include="Models\StreamApi\Options\" />
+    <Folder Include="Models\StreamApi\Spot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApiSharp\ApiSharp\ApiSharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="E:\Github\Huobi\Huobi.Api\.editorconfig" />
+  </ItemGroup>
+
+</Project>
