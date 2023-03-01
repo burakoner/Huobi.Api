@@ -1,18 +1,17 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Account state
+/// </summary>
+public enum AccountState
 {
     /// <summary>
-    /// Account state
+    /// Working
     /// </summary>
-    public enum AccountState
-    {
-        /// <summary>
-        /// Working
-        /// </summary>
-        Working,
+    Working,
 
-        /// <summary>
-        /// Locked
-        /// </summary>
-        Locked
-    }
+    /// <summary>
+    /// Locked
+    /// </summary>
+    Locked
 }

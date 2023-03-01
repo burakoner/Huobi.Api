@@ -1,18 +1,17 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Define transfer type
+/// </summary>
+public enum WalletTransactionType
 {
     /// <summary>
-    /// Define transfer type
+    /// Deposit
     /// </summary>
-    public enum WalletTransactionType
-    {
-        /// <summary>
-        /// Deposit
-        /// </summary>
-        Deposit,
+    Deposit,
 
-        /// <summary>
-        /// Withdraw
-        /// </summary>
-        Withdraw
-    }
+    /// <summary>
+    /// Withdraw
+    /// </summary>
+    Withdraw
 }

@@ -1,23 +1,22 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Fee type
+/// </summary>
+public enum FeeType
 {
     /// <summary>
-    /// Fee type
+    /// Fixed
     /// </summary>
-    public enum FeeType
-    {
-        /// <summary>
-        /// Fixed
-        /// </summary>
-        Fixed,
+    Fixed,
 
-        /// <summary>
-        /// Circulated
-        /// </summary>
-        Circulated,
+    /// <summary>
+    /// Circulated
+    /// </summary>
+    Circulated,
 
-        /// <summary>
-        /// Ratio
-        /// </summary>
-        Ratio
-    }
+    /// <summary>
+    /// Ratio
+    /// </summary>
+    Ratio
 }

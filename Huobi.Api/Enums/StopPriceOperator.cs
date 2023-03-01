@@ -1,18 +1,17 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Stop price operator
+/// </summary>
+public enum StopPriceOperator
 {
     /// <summary>
-    /// Stop price operator
+    /// Greater than or equal to stop price
     /// </summary>
-    public enum StopPriceOperator
-    {
-        /// <summary>
-        /// Greater than or equal to stop price
-        /// </summary>
-        GreaterThanOrEqual,
+    GreaterThanOrEqual,
 
-        /// <summary>
-        /// Less than or equal to stop price
-        /// </summary>
-        LesserThanOrEqual
-    }
+    /// <summary>
+    /// Less than or equal to stop price
+    /// </summary>
+    LesserThanOrEqual
 }

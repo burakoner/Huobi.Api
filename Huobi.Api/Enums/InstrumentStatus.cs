@@ -1,18 +1,17 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Status of an instrument
+/// </summary>
+public enum InstrumentStatus
 {
     /// <summary>
-    /// Status of an instrument
+    /// Normal
     /// </summary>
-    public enum InstrumentStatus
-    {
-        /// <summary>
-        /// Normal
-        /// </summary>
-        Normal,
+    Normal,
 
-        /// <summary>
-        /// Delisted
-        /// </summary>
-        Delisted
-    }
+    /// <summary>
+    /// Delisted
+    /// </summary>
+    Delisted
 }

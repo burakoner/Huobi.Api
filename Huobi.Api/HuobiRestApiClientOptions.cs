@@ -14,6 +14,9 @@ public class HuobiRestApiClientOptions : RestApiClientOptions
     /// </summary>
     public bool SignPublicRequests { get; set; }
 
+    // Broker Id
+    public string BrokerId { get; set; }
+
     public HuobiRestApiClientOptions() : this(null)
     {
     }
@@ -100,6 +103,11 @@ public class HuobiRestApiClientOptions : RestApiClientOptions
 
         // Request Body
         RequestBodyParameterKey = "BODY";
+
+
+        // Broker Id
+        BrokerId = "AA8cd967de";
+
     }
 
 }

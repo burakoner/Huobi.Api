@@ -45,7 +45,7 @@ namespace ConsoleApp1
                 Side = Huobi.Api.Enums.SpotOrderSide.Buy,
                 Type = Huobi.Api.Enums.SpotOrderType.Limit,
                 Quantity = 100m,
-                Price = 0.37500m,
+                Price = 0.37510m,
                 Source = Huobi.Api.Enums.OrderSource.Spot,
             });
             /**/

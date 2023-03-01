@@ -1,23 +1,22 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Status of the market
+/// </summary>
+public enum MarketStatus
 {
     /// <summary>
-    /// Status of the market
+    /// Operating normally
     /// </summary>
-    public enum MarketStatus
-    {
-        /// <summary>
-        /// Operating normally
-        /// </summary>
-        Normal = 1,
+    Normal = 1,
 
-        /// <summary>
-        /// Trading halted
-        /// </summary>
-        Halted = 2,
+    /// <summary>
+    /// Trading halted
+    /// </summary>
+    Halted = 2,
 
-        /// <summary>
-        /// Only cancelation is possible
-        /// </summary>
-        CancelOnly = 3
-    }
+    /// <summary>
+    /// Only cancelation is possible
+    /// </summary>
+    CancelOnly = 3
 }

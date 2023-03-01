@@ -1,8 +1,7 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+public enum FuturesTransferType
 {
-    public enum FuturesTransferType
-    {
-        FuturesToPro,
-        ProToFutures,
-    }
+    FuturesToPro,
+    ProToFutures,
 }

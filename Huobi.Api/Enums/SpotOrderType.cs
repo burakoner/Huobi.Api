@@ -1,43 +1,42 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Order type
+/// </summary>
+public enum SpotOrderType
 {
     /// <summary>
-    /// Order type
+    /// Limit
     /// </summary>
-    public enum SpotOrderType
-    {
-        /// <summary>
-        /// Limit
-        /// </summary>
-        Limit,
+    Limit,
 
-        /// <summary>
-        /// Market
-        /// </summary>
-        Market,
+    /// <summary>
+    /// Market
+    /// </summary>
+    Market,
 
-        /// <summary>
-        /// Immediate or cancel
-        /// </summary>
-        IOC,
+    /// <summary>
+    /// Immediate or cancel
+    /// </summary>
+    IOC,
 
-        /// <summary>
-        /// Limit maker
-        /// </summary>
-        LimitMaker,
+    /// <summary>
+    /// Limit maker
+    /// </summary>
+    LimitMaker,
 
-        /// <summary>
-        /// Stop limit
-        /// </summary>
-        StopLimit,
+    /// <summary>
+    /// Stop limit
+    /// </summary>
+    StopLimit,
 
-        /// <summary>
-        /// Fill or kill limit
-        /// </summary>
-        FillOrKillLimit,
+    /// <summary>
+    /// Fill or kill limit
+    /// </summary>
+    FillOrKillLimit,
 
-        /// <summary>
-        /// Fill or kill stop limit
-        /// </summary>
-        FillOrKillStopLimit,
-    }
+    /// <summary>
+    /// Fill or kill stop limit
+    /// </summary>
+    FillOrKillStopLimit,
 }

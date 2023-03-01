@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using Huobi.Api.Models.RestApi.Common;
+﻿using Huobi.Api.Models.RestApi.Spot.Trading;
 
-namespace Huobi.Net.Objects.Models
-{
-    /// <summary>
-    /// Orders info
-    /// </summary>
-    public class HuobiOrders
+namespace Huobi.Net.Objects.Models;
+
+/// <summary>
+/// Orders info
+/// </summary>
+public class HuobiOrders
 	{
-        /// <summary>
-        /// Timestamp for pagination
-        /// </summary>
-        public DateTime NextTime { get; set; }
-        /// <summary>
-        /// List of ticks for symbols
-        /// </summary>
-        public IEnumerable<HuobiOrder> Orders { get; set; } = Array.Empty<HuobiOrder>();
-    }
+    /// <summary>
+    /// Timestamp for pagination
+    /// </summary>
+    public DateTime NextTime { get; set; }
+    /// <summary>
+    /// List of ticks for symbols
+    /// </summary>
+    public IEnumerable<HuobiOrder> Orders { get; set; } = Array.Empty<HuobiOrder>();
 }

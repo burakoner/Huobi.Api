@@ -1,5 +1,4 @@
-﻿using Huobi.Api.Models.RestApi.Spot;
-using Newtonsoft.Json;
+﻿using Huobi.Api.Models.RestApi.Spot.Trading;
 
 namespace Huobi.Net.Objects.Models.Socket
 {

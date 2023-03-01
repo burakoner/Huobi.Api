@@ -1,28 +1,27 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Source
+/// </summary>
+public enum OrderSource
 {
     /// <summary>
-    /// Source
+    /// Spot api
     /// </summary>
-    public enum OrderSource
-    {
-        /// <summary>
-        /// Spot api
-        /// </summary>
-        Spot,
+    Spot,
 
-        /// <summary>
-        /// Isolate margin api
-        /// </summary>
-        IsolatedMargin,
+    /// <summary>
+    /// Isolate margin api
+    /// </summary>
+    IsolatedMargin,
 
-        /// <summary>
-        /// Cross margin api
-        /// </summary>
-        CrossMargin,
+    /// <summary>
+    /// Cross margin api
+    /// </summary>
+    CrossMargin,
 
-        /// <summary>
-        /// c2c margin api
-        /// </summary>
-        C2CMargin
-    }
+    /// <summary>
+    /// c2c margin api
+    /// </summary>
+    C2CMargin
 }

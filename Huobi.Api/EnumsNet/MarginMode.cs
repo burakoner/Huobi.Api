@@ -1,26 +1,25 @@
-﻿// .Attributes;
+﻿namespace Huobi.Net.Enums;
 
-namespace Huobi.Net.Enums
+/// <summary>
+/// Margin mode
+/// </summary>
+public enum MarginMode
 {
     /// <summary>
-    /// Margin mode
+    /// Cross margin
     /// </summary>
-    public enum MarginMode
-    {
-        /// <summary>
-        /// Cross margin
-        /// </summary>
-        [Map("cross")]
-        Cross,
-        /// <summary>
-        /// Isolated margin
-        /// </summary>
-        [Map("isolated")]
-        Isolated,
-        /// <summary>
-        /// All (filter)
-        /// </summary>
-        [Map("all")]
-        All
-    }
+    [Map("cross")]
+    Cross,
+
+    /// <summary>
+    /// Isolated margin
+    /// </summary>
+    [Map("isolated")]
+    Isolated,
+
+    /// <summary>
+    /// All (filter)
+    /// </summary>
+    [Map("all")]
+    All
 }

@@ -33,7 +33,12 @@ public abstract class RestApiBaseClient : RestApiClient
         => new HuobiAuthenticationProvider(credentials);
 
     protected override Error ParseErrorResponse(JToken error)
-        => RootClient.ParseErrorResponse(error);
+    {
+        if (error["err-code"] == null || error["err-msg"] == null)
+            return new ServerError(error.ToString());
+
+        return new ServerError($"{(string)error["err-code"]!}, {(string)error["err-msg"]!}");
+    }
 
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
         => RootClient.Spot.Public.GetServerTimeAsync();
@@ -44,6 +49,12 @@ public abstract class RestApiBaseClient : RestApiClient
     public override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;
     #endregion
+
+    internal string ClientOrderId(string clientOrderId)
+    {
+        clientOrderId.ValidateClientOrderId();
+        return ClientOptions.BrokerId + "-" + (string.IsNullOrEmpty(clientOrderId) ? Guid.NewGuid().ToString() : clientOrderId);
+    }
 
     #region Internal Methods
     internal Uri GetUrl(string version, string endpoint)
@@ -76,4 +87,5 @@ public abstract class RestApiBaseClient : RestApiClient
         return result.As(result.Data.Data);
     }
     #endregion
+
 }

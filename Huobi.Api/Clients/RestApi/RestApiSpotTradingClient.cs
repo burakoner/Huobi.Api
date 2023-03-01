@@ -1,14 +1,10 @@
-﻿using Huobi.Api.Models.RestApi.Account;
-using Huobi.Api.Models.RestApi.Common;
-using Huobi.Api.Models.RestApi.Reference;
+﻿using Huobi.Api.Models.RestApi.Spot.Public;
+using Huobi.Api.Models.RestApi.Spot.Trading;
 
 namespace Huobi.Api.Clients.RestApi;
 
 public class RestApiSpotTradingClient : RestApiBaseClient
 {
-    // Broker Id
-    private const string BROKER_ID = "AA8cd967de";
-
     // Trading Endpoints
     private const string orderOrdersPlaceEndpoint = "order/orders/place";
     private const string orderBatchOrdersEndpoint = "order/batch-orders";
@@ -26,6 +22,13 @@ public class RestApiSpotTradingClient : RestApiBaseClient
     private const string orderMatchResultsEndpoint = "order/matchresults";
     private const string referenceTransactFeeRateEndpoint = "reference/transact-fee-rate";
 
+    // Conditional Order Endpoints
+    private const string algoOrdersEndpoint = "algo-orders";
+    private const string algoOrdersCancellationEndpoint = "algo-orders/cancellation";
+    private const string algoOrdersOpeningEndpoint = "algo-orders/opening";
+    private const string algoOrdersHistoryEndpoint = "algo-orders/history";
+    private const string algoOrdersSpecificEndpoint = "algo-orders/specific";
+
     internal RestApiSpotTradingClient(HuobiRestApiClient root) : base("Huobi Spot Trading RestApi", root)
     {
     }
@@ -34,16 +37,15 @@ public class RestApiSpotTradingClient : RestApiBaseClient
     public async Task<RestCallResult<long>> GetUserIdAsync(CancellationToken ct = default)
         => await RootClient.Users.GetUserIdAsync(ct).ConfigureAwait(false);
 
-    public async Task<RestCallResult<IEnumerable<HuobiAccount>>> GetAccountsAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<Models.RestApi.Account.HuobiAccount>>> GetAccountsAsync(CancellationToken ct = default)
         => await RootClient.Wallet.GetAccountsAsync(ct).ConfigureAwait(false);
     #endregion
 
+    #region Trading Methods
     public async Task<RestCallResult<long>> PlaceOrderAsync(long accountId, string symbol, SpotOrderSide side, SpotOrderType type, decimal quantity, decimal? price = null, string clientOrderId = null, decimal? stopPrice = null, StopPriceOperator? stopPriceOperator = null, OrderSource source =  OrderSource.Spot, bool preventSelfMatch = false, CancellationToken ct = default)
     {
         symbol = symbol.ValidateSpotSymbol();
-        clientOrderId.ValidateClientOrderId();
-
-        var brokerClientOrderId = BROKER_ID + "-" + (string.IsNullOrEmpty(clientOrderId) ? Guid.NewGuid().ToString() : clientOrderId);
+        var brokerClientOrderId = ClientOrderId(clientOrderId);
 
         if (type == SpotOrderType.StopLimit)
             throw new ArgumentException("Stop limit orders not supported by API");
@@ -79,8 +81,7 @@ public class RestApiSpotTradingClient : RestApiBaseClient
     {
         var brokerRequest = new HuobiOrderRequestString(request);
         brokerRequest.Symbol = brokerRequest.Symbol.ValidateSpotSymbol();
-        brokerRequest.ClientOrderId.ValidateClientOrderId();
-        brokerRequest.ClientOrderId = BROKER_ID + "-" + (string.IsNullOrEmpty(brokerRequest.ClientOrderId) ? Guid.NewGuid().ToString() : brokerRequest.ClientOrderId);
+        brokerRequest.ClientOrderId = ClientOrderId(brokerRequest.ClientOrderId);
 
         var parameters = new Dictionary<string, object>
         {
@@ -96,8 +97,7 @@ public class RestApiSpotTradingClient : RestApiBaseClient
         foreach (var brokerRequest in brokerRequests)
         {
             brokerRequest.Symbol = brokerRequest.Symbol.ValidateSpotSymbol();
-            brokerRequest.ClientOrderId.ValidateClientOrderId();
-            brokerRequest.ClientOrderId = BROKER_ID + "-" + (string.IsNullOrEmpty(brokerRequest.ClientOrderId) ? Guid.NewGuid().ToString() : brokerRequest.ClientOrderId);
+            brokerRequest.ClientOrderId = ClientOrderId(brokerRequest.ClientOrderId);
         }
 
         var parameters = new Dictionary<string, object>
@@ -254,32 +254,21 @@ public class RestApiSpotTradingClient : RestApiBaseClient
 
         return await SendHuobiRequest<IEnumerable<HuobiFeeRate>>(GetUrl(v2, referenceTransactFeeRateEndpoint), HttpMethod.Get, ct, true, parameters).ConfigureAwait(false);
     }
+    #endregion
 
-    /*
-    /// <inheritdoc />
-
-    /// <inheritdoc />
-    public async Task<RestCallResult<HuobiPlacedConditionalOrder>> PlaceConditionalOrderAsync(
-        long accountId,
-        string symbol,
-        OrderSide side,
-        ConditionalOrderType type,
-        decimal stopPrice,
-        decimal? quantity = null,
-        decimal? price = null,
-        decimal? quoteQuantity = null,
-        decimal? trailingRate = null,
-        TimeInForce? timeInForce = null,
-        string? clientOrderId = null,
-        CancellationToken ct = default)
+    #region Conditional Order Methods
+    public async Task<RestCallResult<HuobiConditionalOrderResult>> PlaceConditionalOrderAsync(long accountId, string symbol, SpotOrderSide side, ConditionalOrderType type, decimal stopPrice, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, decimal? trailingRate = null, TimeInForce? timeInForce = null, string clientOrderId = null, CancellationToken ct = default)
     {
+        symbol = symbol.ValidateSpotSymbol();
+        var brokerClientOrderId = ClientOrderId(clientOrderId);
+
         var parameters = new Dictionary<string, object>
             {
                 { "accountId", accountId },
                 { "symbol", symbol },
                 { "orderSide", EnumConverter.GetString(side) },
                 { "orderType", EnumConverter.GetString(type) },
-                { "clientOrderId", clientOrderId ?? Guid.NewGuid().ToString() },
+                { "clientOrderId", brokerClientOrderId },
                 { "stopPrice", stopPrice.ToString(CI) },
             };
 
@@ -289,22 +278,20 @@ public class RestApiSpotTradingClient : RestApiBaseClient
         parameters.AddOptionalParameter("timeInForce", EnumConverter.GetString(timeInForce));
         parameters.AddOptionalParameter("trailingRate", trailingRate?.ToString(CI));
 
-        return await SendHuobiV2Request<HuobiPlacedConditionalOrder>(GetUrl("algo-orders", "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        return await SendHuobiRequest<HuobiConditionalOrderResult>(GetUrl(v2, algoOrdersEndpoint), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    /// <inheritdoc />
     public async Task<RestCallResult<HuobiConditionalOrderCancelResult>> CancelConditionalOrdersAsync(IEnumerable<string> clientOrderIds, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
-            {
-                { "clientOrderIds", clientOrderIds }
-            };
+        {
+            { "clientOrderIds", clientOrderIds }
+        };
 
-        return await SendHuobiV2Request<HuobiConditionalOrderCancelResult>(GetUrl("algo-orders/cancellation", "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        return await SendHuobiRequest<HuobiConditionalOrderCancelResult>(GetUrl(v2, algoOrdersCancellationEndpoint), HttpMethod.Post, ct, true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
-    /// <inheritdoc />
-    public async Task<RestCallResult<IEnumerable<HuobiConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = null, string? symbol = null, OrderSide? side = null, ConditionalOrderType? type = null, string? sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<HuobiConditionalOrder>>> GetOpenConditionalOrdersAsync(long? accountId = null, string symbol = null, SpotOrderSide? side = null, ConditionalOrderType? type = null, string sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("accountId", accountId);
@@ -314,47 +301,37 @@ public class RestApiSpotTradingClient : RestApiBaseClient
         parameters.AddOptionalParameter("sort", sort);
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("fromId", fromId);
-        return await SendHuobiV2Request<IEnumerable<HuobiConditionalOrder>>(GetUrl("algo-orders/opening", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+
+        return await SendHuobiRequest<IEnumerable<HuobiConditionalOrder>>(GetUrl(v2, algoOrdersOpeningEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
-    /// <inheritdoc />
-    public async Task<RestCallResult<IEnumerable<HuobiConditionalOrder>>> GetClosedConditionalOrdersAsync(
-        string symbol,
-        ConditionalOrderStatus status,
-        long? accountId = null,
-        OrderSide? side = null,
-        ConditionalOrderType? type = null,
-        DateTime? startTime = null,
-        DateTime? endTime = null,
-        string? sort = null,
-        int? limit = null,
-        long? fromId = null,
-        CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<HuobiConditionalOrder>>> GetClosedConditionalOrdersAsync(string symbol, ConditionalOrderStatus status, long? accountId = null, SpotOrderSide? side = null, ConditionalOrderType? type = null, DateTime? startTime = null, DateTime? endTime = null, string sort = null, int? limit = null, long? fromId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>()
-            {
-                { "symbol", symbol },
-                { "orderStatus", EnumConverter.GetString(status) }
-            };
+        {
+            { "symbol", symbol },
+            { "orderStatus", EnumConverter.GetString(status) }
+        };
         parameters.AddOptionalParameter("accountId", accountId);
         parameters.AddOptionalParameter("orderSide", EnumConverter.GetString(side));
         parameters.AddOptionalParameter("orderType", EnumConverter.GetString(type));
-        parameters.AddOptionalParameter("startTime", DateTimeConverter.ConvertToMilliseconds(startTime));
-        parameters.AddOptionalParameter("endTime", DateTimeConverter.ConvertToMilliseconds(endTime));
+        parameters.AddOptionalParameter("startTime", startTime.ConvertToMilliseconds());
+        parameters.AddOptionalParameter("endTime", endTime.ConvertToMilliseconds());
         parameters.AddOptionalParameter("sort", sort);
         parameters.AddOptionalParameter("limit", limit);
         parameters.AddOptionalParameter("fromId", fromId);
-        return await SendHuobiV2Request<IEnumerable<HuobiConditionalOrder>>(GetUrl("algo-orders/history", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+
+        return await SendHuobiRequest<IEnumerable<HuobiConditionalOrder>>(GetUrl(v2, algoOrdersHistoryEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
 
-    /// <inheritdoc />
     public async Task<RestCallResult<HuobiConditionalOrder>> GetConditionalOrderAsync(string clientOrderId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>()
-            {
-                { "clientOrderId", clientOrderId }
-            };
-        return await SendHuobiV2Request<HuobiConditionalOrder>(GetUrl("algo-orders/specific", "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        {
+            { "clientOrderId", clientOrderId }
+        };
+        return await SendHuobiRequest<HuobiConditionalOrder>(GetUrl(v2, algoOrdersSpecificEndpoint), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
     }
-    */
+    #endregion
+
 }

@@ -1,18 +1,17 @@
-﻿namespace Huobi.Api.Enums
+﻿namespace Huobi.Api.Enums;
+
+/// <summary>
+/// Account activation
+/// </summary>
+public enum AccountActivation
 {
     /// <summary>
-    /// Account activation
+    /// Activated
     /// </summary>
-    public enum AccountActivation
-    {
-        /// <summary>
-        /// Activated
-        /// </summary>
-        Activated,
+    Activated,
 
-        /// <summary>
-        /// Deactivated
-        /// </summary>
-        Deactivated
-    }
+    /// <summary>
+    /// Deactivated
+    /// </summary>
+    Deactivated
 }

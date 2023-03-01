@@ -1,5 +1,5 @@
-﻿using Huobi.Api.Models.RestApi.Reference;
-using Huobi.Api.Models.RestApi.Spot;
+﻿using Huobi.Api.Models.RestApi.Spot.Public;
+using Huobi.Api.Models.RestApi.Spot.Trading;
 
 namespace Huobi.Api.Clients.RestApi;
 

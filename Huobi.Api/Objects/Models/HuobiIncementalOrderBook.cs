@@ -1,4 +1,6 @@
-﻿namespace Huobi.Api.Models.RestApi.Spot;
+﻿using Huobi.Api.Models.RestApi.Spot.Trading;
+
+namespace Huobi.Api.Models.RestApi.Spot;
 
 
 /// <summary>

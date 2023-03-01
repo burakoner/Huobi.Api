@@ -1,4 +1,4 @@
-﻿using Huobi.Api.Models.RestApi.System;
+﻿using Huobi.Api.Models.RestApi.Spot.Public;
 
 namespace Huobi.Api.Clients.RestApi;
 
