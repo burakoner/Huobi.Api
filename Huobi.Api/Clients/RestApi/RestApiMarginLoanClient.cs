@@ -1,4 +1,6 @@
-﻿namespace Huobi.Api.Clients.RestApi;
+﻿using Huobi.Api.Models.RestApi.Margin;
+
+namespace Huobi.Api.Clients.RestApi;
 
 public class RestApiMarginLoanClient : RestApiBaseClient
 {
@@ -96,7 +98,7 @@ public class RestApiMarginLoanClient : RestApiBaseClient
         };
 
         var endpoint = marginOrdersOrderIdRepayEndpoint.FillPathParameters(orderId.ToString(CultureInfo.InvariantCulture));
-        return await SendHuobiRequest<long>(GetUrl(v1, endpoint), HttpMethod.Post, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendHuobiRequest<long>(GetUrl(v1, endpoint), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<IEnumerable<HuobiMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(

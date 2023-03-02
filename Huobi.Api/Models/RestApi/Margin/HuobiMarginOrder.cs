@@ -1,9 +1,4 @@
-﻿// .Converters;
-using Huobi.Net.Enums;
-using Newtonsoft.Json;
-using System;
-
-namespace Huobi.Net.Objects.Models
+﻿namespace Huobi.Api.Models.RestApi.Margin
 {
     /// <summary>
     /// Margin order info

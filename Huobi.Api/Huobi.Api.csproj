@@ -32,21 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\RestApi\Common\" />
-    <Folder Include="Models\RestApi\Futures\" />
-    <Folder Include="Models\RestApi\Margin\" />
-    <Folder Include="Models\RestApi\Options\" />
-    <Folder Include="Models\StreamApi\Futures\" />
-    <Folder Include="Models\StreamApi\Options\" />
-    <Folder Include="Models\StreamApi\Spot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\ApiSharp\ApiSharp\ApiSharp.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EditorConfigFiles Remove="E:\Github\Huobi\Huobi.Api\.editorconfig" />
   </ItemGroup>
 
 </Project>

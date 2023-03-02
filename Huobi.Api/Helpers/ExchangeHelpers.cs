@@ -2,24 +2,6 @@
 
 internal static class ExchangeHelpers
 {
-    public static void ValidateAssetSymbol(string symbol)
-    {
-        if (string.IsNullOrEmpty(symbol))
-            throw new ArgumentException("Symbol is not provided");
-
-        if (!Regex.IsMatch(symbol, "^([A-Z|0-9]{2,})$"))
-            throw new ArgumentException($"{symbol} is not a valid symbol.");
-    }
-
-    public static void ValidateClientOrderId(string coid, bool allowEmpty)
-    {
-        if (allowEmpty && string.IsNullOrEmpty(coid))
-            return;
-
-        if (!Regex.IsMatch(coid, "^(t-)([a-zA-Z0-9-_.]{0,28})$"))
-            throw new ArgumentException($"{coid} is not a valid Client Order Id. Should be match ^(t-)([a-zA-Z0-9-_.]{{0,28}})$, e.g. t-abcdef_GHIJKL.123456");
-    }
-
     /// <summary>
     /// Clamp a quantity between a min and max quantity and floor to the closest step
     /// </summary>
