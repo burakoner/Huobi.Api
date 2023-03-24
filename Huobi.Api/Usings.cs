@@ -18,7 +18,6 @@ global using Huobi.Api.Enums;
 global using Huobi.Api.Helpers;
 global using Huobi.Api.Models.RestApi;
 global using Huobi.Api.Models.StreamApi;
-global using Huobi.Net.Enums;
 global using Microsoft.Extensions.Logging;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Linq;

@@ -93,7 +93,7 @@ public class RestApiSpotPublicClient : RestApiBaseClient
     }
     #endregion
 
-    public async Task<RestCallResult<IEnumerable<HuobiSpotKline>>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<HuobiKline>>> GetKlinesAsync(string symbol, KlineInterval period, int? limit = null, CancellationToken ct = default)
     {
         symbol = symbol.ValidateSpotSymbol();
         limit?.ValidateIntBetween(nameof(limit), 0, 2000);
@@ -105,7 +105,7 @@ public class RestApiSpotPublicClient : RestApiBaseClient
             };
         parameters.AddOptionalParameter("size", limit);
 
-        return await SendHuobiRequest<IEnumerable<HuobiSpotKline>>(GetUrl(v0, marketHistoryKlineEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        return await SendHuobiRequest<IEnumerable<HuobiKline>>(GetUrl(v0, marketHistoryKlineEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<HuobiSpotAggregatedTicker>> GetTickerAsync(string symbol, CancellationToken ct = default)
@@ -124,7 +124,7 @@ public class RestApiSpotPublicClient : RestApiBaseClient
         return await SendHuobiRequest<IEnumerable<HuobiSpotTicker>>(GetUrl(v0, marketTickersEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);
     }
 
-    public async Task<RestCallResult<HuobiSpotOrderBook>> GetOrderBookAsync(string symbol, int depth = 20, int merge = 0 ,CancellationToken ct = default)
+    public async Task<RestCallResult<HuobiOrderBook>> GetOrderBookAsync(string symbol, int depth = 20, int merge = 0 ,CancellationToken ct = default)
     {
         symbol = symbol.ValidateSpotSymbol();
         merge.ValidateIntValues(nameof(merge), 0, 1, 2, 3, 4, 5);
@@ -137,7 +137,7 @@ public class RestApiSpotPublicClient : RestApiBaseClient
             { "type", "step" + merge }
         };
 
-        return await SendHuobiRequest<HuobiSpotOrderBook>(GetUrl(v0, marketDepthEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
+        return await SendHuobiRequest<HuobiOrderBook>(GetUrl(v0, marketDepthEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
 
     public async Task<RestCallResult<HuobiSpotTrade>> GetLastTradeAsync(string symbol, CancellationToken ct = default)

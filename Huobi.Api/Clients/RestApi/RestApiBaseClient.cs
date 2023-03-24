@@ -46,9 +46,14 @@ public abstract class RestApiBaseClient : RestApiClient
     protected override TimeSyncInfo GetTimeSyncInfo()
         => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
-    public override TimeSpan GetTimeOffset()
+    protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;
     #endregion
+
+    internal string ClientOrderId()
+    {
+        return ClientOptions.BrokerId + "-" + Guid.NewGuid().ToString();
+    }
 
     internal string ClientOrderId(string clientOrderId)
     {

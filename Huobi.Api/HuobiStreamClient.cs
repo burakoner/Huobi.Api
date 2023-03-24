@@ -6,7 +6,7 @@ public class HuobiStreamClient
     public HuobiStreamClientOptions ClientOptions { get; }
 
     // Master Clients
-    internal StreamApiBaseClient Base { get; }
+    public StreamApiFuturesClient Futures { get; }
     public StreamApiSpotClient Spot { get; }
 
     public HuobiStreamClient() : this(new HuobiStreamClientOptions())
@@ -17,7 +17,7 @@ public class HuobiStreamClient
     {
         ClientOptions = options;
 
-        Base = new StreamApiBaseClient(this);
+        Futures = new StreamApiFuturesClient(this);
         Spot = new StreamApiSpotClient(this);
     }
 

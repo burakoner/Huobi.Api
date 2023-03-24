@@ -10,7 +10,7 @@ public class HuobiOrderRequest
     public decimal? Price { get; set; }
     public decimal? StopPrice { get; set; }
     public StopPriceOperator? StopPriceOperator { get; set; }
-    public string ClientOrderId { get; set; }
+    // public string ClientOrderId { get; set; }
     public OrderSource Source { get; set; }
     public bool PreventSelfMatch { get; set; }
 }
@@ -57,7 +57,7 @@ internal class HuobiOrderRequestString
         Price = request.Price?.ToString(CultureInfo.InvariantCulture);
         StopPrice = request.StopPrice?.ToString(CultureInfo.InvariantCulture);
         StopPriceOperator = request.StopPriceOperator == null ? null : JsonConvert.SerializeObject(request.StopPriceOperator, new StopPriceOperatorConverter(false));
-        ClientOrderId = request.ClientOrderId;
+        // ClientOrderId = request.ClientOrderId;
         Source = JsonConvert.SerializeObject(request.Source, new OrderSourceConverter(false)); ;
         PreventSelfMatch = request.PreventSelfMatch ? 1 : 0;
     }

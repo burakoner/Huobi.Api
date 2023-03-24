@@ -70,7 +70,7 @@ public class RestApiMarginLoanClient : RestApiBaseClient
 
         return await SendHuobiRequest<long>(GetUrl(v1, dwTransferOutMarginEndpoint), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
-    public async Task<RestCallResult<IEnumerable<HuobiLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string>? symbols = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<HuobiLoanInfo>>> GetIsolatedLoanInterestRateAndQuotaAsync(IEnumerable<string> symbols = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("symbols", symbols == null ? null : string.Join(",", symbols));
@@ -103,7 +103,7 @@ public class RestApiMarginLoanClient : RestApiBaseClient
 
     public async Task<RestCallResult<IEnumerable<HuobiMarginOrder>>> GetIsolatedMarginClosedOrdersAsync(
     string symbol,
-    IEnumerable<MarginOrderStatus>? states = null,
+    IEnumerable<MarginOrderStatus> states = null,
     DateTime? startDate = null,
     DateTime? endDate = null,
     string from = null,

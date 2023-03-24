@@ -97,11 +97,11 @@ public class HuobiSpotAggregatedTicker : HuobiSpotMarketSummary
     /// The current best bid for the symbol
     /// </summary>
     [JsonProperty("bid")]
-    public HuobiSpotOrderBookEntry BestBid { get; set; }
+    public HuobiOrderBookEntry BestBid { get; set; }
 
     /// <summary>
     /// The current best ask for the symbol
     /// </summary>
     [JsonProperty("ask")]
-    public HuobiSpotOrderBookEntry BestAsk { get; set; }
+    public HuobiOrderBookEntry BestAsk { get; set; }
 }

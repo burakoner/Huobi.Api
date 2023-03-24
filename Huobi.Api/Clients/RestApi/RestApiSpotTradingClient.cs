@@ -42,10 +42,10 @@ public class RestApiSpotTradingClient : RestApiBaseClient
     #endregion
 
     #region Trading Methods
-    public async Task<RestCallResult<long>> PlaceOrderAsync(long accountId, string symbol, SpotOrderSide side, SpotOrderType type, decimal quantity, decimal? price = null, string clientOrderId = null, decimal? stopPrice = null, StopPriceOperator? stopPriceOperator = null, OrderSource source =  OrderSource.Spot, bool preventSelfMatch = false, CancellationToken ct = default)
+    public async Task<RestCallResult<long>> PlaceOrderAsync(long accountId, string symbol, SpotOrderSide side, SpotOrderType type, decimal quantity, decimal? price = null, /*string clientOrderId = null,*/ decimal? stopPrice = null, StopPriceOperator? stopPriceOperator = null, OrderSource source =  OrderSource.Spot, bool preventSelfMatch = false, CancellationToken ct = default)
     {
         symbol = symbol.ValidateSpotSymbol();
-        var brokerClientOrderId = ClientOrderId(clientOrderId);
+        var brokerClientOrderId = ClientOrderId();
 
         if (type == SpotOrderType.StopLimit)
             throw new ArgumentException("Stop limit orders not supported by API");
@@ -81,7 +81,7 @@ public class RestApiSpotTradingClient : RestApiBaseClient
     {
         var brokerRequest = new HuobiOrderRequestString(request);
         brokerRequest.Symbol = brokerRequest.Symbol.ValidateSpotSymbol();
-        brokerRequest.ClientOrderId = ClientOrderId(brokerRequest.ClientOrderId);
+        brokerRequest.ClientOrderId = ClientOrderId();
 
         var parameters = new Dictionary<string, object>
         {
@@ -97,7 +97,7 @@ public class RestApiSpotTradingClient : RestApiBaseClient
         foreach (var brokerRequest in brokerRequests)
         {
             brokerRequest.Symbol = brokerRequest.Symbol.ValidateSpotSymbol();
-            brokerRequest.ClientOrderId = ClientOrderId(brokerRequest.ClientOrderId);
+            brokerRequest.ClientOrderId = ClientOrderId();
         }
 
         var parameters = new Dictionary<string, object>
@@ -257,10 +257,10 @@ public class RestApiSpotTradingClient : RestApiBaseClient
     #endregion
 
     #region Conditional Order Methods
-    public async Task<RestCallResult<HuobiConditionalOrderResult>> PlaceConditionalOrderAsync(long accountId, string symbol, SpotOrderSide side, ConditionalOrderType type, decimal stopPrice, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, decimal? trailingRate = null, TimeInForce? timeInForce = null, string clientOrderId = null, CancellationToken ct = default)
+    public async Task<RestCallResult<HuobiConditionalOrderResult>> PlaceConditionalOrderAsync(long accountId, string symbol, SpotOrderSide side, ConditionalOrderType type, decimal stopPrice, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, decimal? trailingRate = null, TimeInForce? timeInForce = null, /*string clientOrderId = null,*/ CancellationToken ct = default)
     {
         symbol = symbol.ValidateSpotSymbol();
-        var brokerClientOrderId = ClientOrderId(clientOrderId);
+        var brokerClientOrderId = ClientOrderId();
 
         var parameters = new Dictionary<string, object>
             {
