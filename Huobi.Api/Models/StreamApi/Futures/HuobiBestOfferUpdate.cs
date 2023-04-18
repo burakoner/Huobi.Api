@@ -1,4 +1,4 @@
-﻿using Huobi.Api.Models.RestApi.Spot.Trading;
+﻿using Huobi.Api.Models.RestApi.Spot;
 
 namespace Huobi.Api.Models.StreamApi.Futures
 {

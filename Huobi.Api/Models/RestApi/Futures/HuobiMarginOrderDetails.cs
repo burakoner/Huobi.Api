@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Huobi.Api.Models.RestApi.Margin;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 

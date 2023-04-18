@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Huobi.Api.Models.StreamApi.Futures;
 
 namespace Huobi.Api.Models.StreamApi.Spot
 {

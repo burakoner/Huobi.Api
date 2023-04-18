@@ -3,13 +3,14 @@
 public class HuobiApiAddresses
 {
     // Rest Api
-    public string RestApiAddress { get; set; }
-    // public string StatusRestApiAddress { get; set; }
+    public string SpotRestApiAddress { get; set; }
+    public string FuturesRestApiAddress { get; set; }
+    public string SwapRestApiAddress { get; set; }
 
     // Spot Streams
     public string StreamSpotPublicAddress { get; set; }
+    public string StreamSpotMBPFeedAddress { get; set; }
     public string StreamSpotPrivateAddress { get; set; }
-    public string StreamSpotOrderBookFeedAddress { get; set; }
 
     // Futures Streams
     public string StreamFuturesMarketDataAddress { get; set; }
@@ -26,13 +27,14 @@ public class HuobiApiAddresses
     public static HuobiApiAddresses Default = new()
     {
         // Rest Api
-        RestApiAddress = "https://api.huobi.pro",
-        // StatusRestApiAddress = "https://status.huobigroup.com",
+        SpotRestApiAddress = "https://api.huobi.pro",
+        FuturesRestApiAddress = "https://api.hbdm.com",
+        SwapRestApiAddress = "https://api.hbdm.com",
 
         // Spot Streams
         StreamSpotPublicAddress = "wss://api.huobi.pro/ws",
+        StreamSpotMBPFeedAddress = "wss://api.huobi.pro/feed",
         StreamSpotPrivateAddress = "wss://api.huobi.pro/ws/v2",
-        StreamSpotOrderBookFeedAddress = "wss://api.huobi.pro/feed",
 
         // Futures Streams
         StreamFuturesMarketDataAddress = "wss://api.hbdm.com/ws",
@@ -40,35 +42,49 @@ public class HuobiApiAddresses
         StreamFuturesKlineBasisDataAddress = "wss://api.hbdm.com/ws_index",
         StreamFuturesSystemStatusAddress = "wss://api.hbdm.com/center-notification",
 
-        // Futures Streams (Backup)
-        //StreamFuturesMarketDataAddress = "wss://api.btcgateway.pro/ws",
-        //StreamFuturesOrderPushAddress = "wss://api.btcgateway.pro/notification",
-        //StreamFuturesKlineBasisDataAddress = "wss://api.btcgateway.pro/ws_index",
-        //StreamFuturesSystemStatusAddress = "wss://api.btcgateway.pro/center-notification",
-
         // Swap Streams
         StreamSwapMarketDataAddress = "wss://api.hbdm.com/swap-ws",
         StreamSwapOrderPushAddress = "wss://api.hbdm.com/swap-notification",
         StreamSwapKlineBasisDataAddress = "wss://api.hbdm.com/ws_index",
         StreamSwapSystemStatusAddress = "wss://api.hbdm.com/center-notification",
+    };
 
-        // Swap Streams (Backup)
-        //StreamSwapMarketDataAddress = "wss://api.btcgateway.pro/swap-ws",
-        //StreamSwapOrderPushAddress = "wss://api.btcgateway.pro/swap-notification",
-        //StreamSwapKlineBasisDataAddress = "wss://api.btcgateway.pro/ws_index",
-        //StreamSwapSystemStatusAddress = "wss://api.btcgateway.pro/center-notification",
+    public static HuobiApiAddresses Debug = new()
+    {
+        // Rest Api
+        SpotRestApiAddress = "https://api.huobi.pro",
+        FuturesRestApiAddress = "https://api.btcgateway.pro",
+        SwapRestApiAddress = "https://api.btcgateway.pro",
+
+        // Spot Streams
+        StreamSpotPublicAddress = "wss://api.huobi.pro/ws",
+        StreamSpotMBPFeedAddress = "wss://api.huobi.pro/feed",
+        StreamSpotPrivateAddress = "wss://api.huobi.pro/ws/v2",
+
+        // Futures Streams
+        StreamFuturesMarketDataAddress = "wss://api.btcgateway.pro/ws",
+        StreamFuturesOrderPushAddress = "wss://api.btcgateway.pro/notification",
+        StreamFuturesKlineBasisDataAddress = "wss://api.btcgateway.pro/ws_index",
+        StreamFuturesSystemStatusAddress = "wss://api.btcgateway.pro/center-notification",
+
+        // Swap Streams
+        StreamSwapMarketDataAddress = "wss://api.btcgateway.pro/swap-ws",
+        StreamSwapOrderPushAddress = "wss://api.btcgateway.pro/swap-notification",
+        StreamSwapKlineBasisDataAddress = "wss://api.btcgateway.pro/ws_index",
+        StreamSwapSystemStatusAddress = "wss://api.btcgateway.pro/center-notification",
     };
 
     public static HuobiApiAddresses AWS = new()
     {
         // Rest Api
-        RestApiAddress = "https://api-aws.huobi.pro",
-        // StatusRestApiAddress = "https://status.huobigroup.com",
+        SpotRestApiAddress = "https://api-aws.huobi.pro",
+        FuturesRestApiAddress = "https://api.hbdm.vn",
+        SwapRestApiAddress = "https://api.hbdm.vn",
 
         // Spot Streams
         StreamSpotPublicAddress = "wss://api-aws.huobi.pro/ws",
+        StreamSpotMBPFeedAddress = "wss://api-aws.huobi.pro/feed",
         StreamSpotPrivateAddress = "wss://api-aws.huobi.pro/ws/v2",
-        StreamSpotOrderBookFeedAddress = "wss://api-aws.huobi.pro/feed",
 
         // Futures Streams
         StreamFuturesMarketDataAddress = "wss://api.hbdm.vn/ws",
@@ -86,13 +102,14 @@ public class HuobiApiAddresses
     public static HuobiApiAddresses TestNet = new()
     {
         // Rest Api
-        RestApiAddress = "",
-        // StatusRestApiAddress = "",
+        SpotRestApiAddress = "",
+        FuturesRestApiAddress = "",
+        SwapRestApiAddress = "",
 
         // Spot Streams
         StreamSpotPublicAddress = "",
+        StreamSpotMBPFeedAddress = "",
         StreamSpotPrivateAddress = "",
-        StreamSpotOrderBookFeedAddress = "",
 
         // Futures Streams
         StreamFuturesMarketDataAddress = "",

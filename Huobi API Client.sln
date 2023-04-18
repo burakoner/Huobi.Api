@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Huobi", "Huobi.Api\Huobi.csproj", "{2FEA9C16-09C6-4282-9A15-E94F7EDF8C19}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Huobi.Api", "Huobi.Api\Huobi.Api.csproj", "{29B5E8C9-F195-4EB1-940C-4ED3156F40DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{1F7014F1-AFD4-42A6-B776-4803AACF5D57}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2FEA9C16-09C6-4282-9A15-E94F7EDF8C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FEA9C16-09C6-4282-9A15-E94F7EDF8C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FEA9C16-09C6-4282-9A15-E94F7EDF8C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FEA9C16-09C6-4282-9A15-E94F7EDF8C19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{29B5E8C9-F195-4EB1-940C-4ED3156F40DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{29B5E8C9-F195-4EB1-940C-4ED3156F40DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29B5E8C9-F195-4EB1-940C-4ED3156F40DA}.Release|Any CPU.ActiveCfg = Release|Any CPU

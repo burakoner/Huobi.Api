@@ -17,7 +17,7 @@ public class StreamApiSwapClient : StreamApiBaseClient
     }
 
     protected override Task<CallResult<bool>> AuthenticateAsync(StreamConnection connection)
-        => FuturesAuthenticateAsync(connection);
+        => SwapAuthenticateAsync(connection);
 
 
 

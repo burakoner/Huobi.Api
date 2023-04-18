@@ -1,5 +1,5 @@
-﻿using Huobi.Api.Models.RestApi.Account;
-using Huobi.Api.Models.RestApi.Users;
+﻿using Huobi.Api.Models.RestApi.Users;
+using Huobi.Api.Models.RestApi.Wallet;
 using System.Collections.Generic;
 
 namespace Huobi.Api.Clients.RestApi;
@@ -28,6 +28,15 @@ public class RestApiUsersClient : RestApiBaseClient
 
     internal RestApiUsersClient(HuobiRestApiClient root) : base("Huobi SubUsers RestApi", root)
     {
+    }
+
+    private Uri GetUrl(string version, string endpoint)
+    {
+        var address = ClientOptions.SpotRestApiBaseAddress;
+        if (!string.IsNullOrWhiteSpace(version)) address = address.AppendPath($"v{version}");
+        if (!string.IsNullOrWhiteSpace(endpoint)) address = address.AppendPath(endpoint);
+
+        return new Uri(address);
     }
 
     // TODO: API key query

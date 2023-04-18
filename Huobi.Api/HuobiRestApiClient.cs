@@ -8,19 +8,11 @@ public class HuobiRestApiClient
 
     // Master Clients
     public RestApiSpotClient Spot { get; }
+    public RestApiMarginClient Margin { get; }
     public RestApiUsersClient Users { get; }
-    public RestApiSystemClient System { get; }
     public RestApiWalletClient Wallet { get; }
-    public RestApiAccountClient Account { get; }
-    public RestApiMarginLoanClient MarginLoan { get; }
-
-    //public RestApiSystemClient Common { get; }
-    //public RestApiSystemClient Market { get; }
-    //public RestApiSystemClient Margin { get; }
-    //public RestApiSystemClient CrossMargin { get; }
-    //public RestApiSpotClient Wallet { get; }
-    //public RestApiSpotClient Futures { get; }
-    //public RestApiSpotClient Swaps { get; }
+    public RestApiFuturesClient Futures { get; }
+    //public RestApiSwapClient Swap { get; }
 
     public HuobiRestApiClient() : this(new HuobiRestApiClientOptions())
     {
@@ -31,11 +23,10 @@ public class HuobiRestApiClient
         ClientOptions = options;
 
         Spot = new RestApiSpotClient(this);
+        Margin = new RestApiMarginClient(this);
         Users = new RestApiUsersClient(this);
-        System = new RestApiSystemClient(this);
         Wallet = new RestApiWalletClient(this);
-        Account = new RestApiAccountClient(this);
-        MarginLoan = new RestApiMarginLoanClient(this);
+        Futures = new RestApiFuturesClient(this);
     }
 
 }

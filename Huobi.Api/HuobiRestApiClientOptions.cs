@@ -9,6 +9,11 @@ public class HuobiRestApiClientOptions : RestApiClientOptions
     public bool AutoTimestamp { get; set; }
     public TimeSpan TimestampRecalculationInterval { get; set; }
 
+    // Rest API Addresses
+    public string SpotRestApiBaseAddress { get; set; }
+    public string FuturesRestApiBaseAddress { get; set; }
+    public string SwapRestApiBaseAddress { get; set; }
+
     /// <summary>
     /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
     /// </summary>
@@ -24,7 +29,9 @@ public class HuobiRestApiClientOptions : RestApiClientOptions
         ApiCredentials = credentials;
 
         // Api Addresses
-        BaseAddress = HuobiApiAddresses.Default.RestApiAddress;
+        SpotRestApiBaseAddress = HuobiApiAddresses.Default.SpotRestApiAddress;
+        FuturesRestApiBaseAddress = HuobiApiAddresses.Default.FuturesRestApiAddress;
+        SwapRestApiBaseAddress = HuobiApiAddresses.Default.SwapRestApiAddress;
 
         // Rate Limiters
         RateLimiters = new List<IRateLimiter>

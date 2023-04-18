@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.IO.Compression;
+﻿using Huobi.Api.Models.StreamApi;
 
 namespace Huobi.Api.Clients.StreamApi;
 
@@ -288,6 +287,39 @@ public abstract class StreamApiBaseClient : StreamApiClient
     }
 
     protected async Task<CallResult<bool>> FuturesAuthenticateAsync(StreamConnection connection)
+    {
+        if (AuthenticationProvider == null)
+            return new CallResult<bool>(new NoApiCredentialsError());
+
+        var result = new CallResult<bool>(new ServerError("No response from server"));
+        await connection.SendAndWaitAsync(((HuobiAuthenticationProvider)AuthenticationProvider).GetWebsocketAuthentication2(connection.ConnectionUri), ClientOptions.ResponseTimeout, data =>
+        {
+            if (data["op"]?.ToString() != "auth")
+                return false;
+
+            var authResponse = Deserialize<HuobiAuthResponse>(data);
+            if (!authResponse)
+            {
+                Log.Write(LogLevel.Warning, $"Socket {connection.Id} Authorization failed: " + authResponse.Error);
+                result = new CallResult<bool>(authResponse.Error!);
+                return true;
+            }
+            if (!authResponse.Data.IsSuccessful)
+            {
+                Log.Write(LogLevel.Warning, $"Socket {connection.Id} Authorization failed: " + authResponse.Data.Message);
+                result = new CallResult<bool>(new ServerError(authResponse.Data.Code, authResponse.Data.Message));
+                return true;
+            }
+
+            Log.Write(LogLevel.Debug, $"Socket {connection.Id} Authorization completed");
+            result = new CallResult<bool>(true);
+            return true;
+        }).ConfigureAwait(false);
+
+        return result;
+    }
+
+    protected async Task<CallResult<bool>> SwapAuthenticateAsync(StreamConnection connection)
     {
         if (AuthenticationProvider == null)
             return new CallResult<bool>(new NoApiCredentialsError());

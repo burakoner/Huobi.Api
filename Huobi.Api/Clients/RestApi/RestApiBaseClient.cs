@@ -1,4 +1,6 @@
-﻿namespace Huobi.Api.Clients.RestApi;
+﻿using Huobi.Api.Models.RestApi;
+
+namespace Huobi.Api.Clients.RestApi;
 
 public abstract class RestApiBaseClient : RestApiClient
 {
@@ -41,7 +43,7 @@ public abstract class RestApiBaseClient : RestApiClient
     }
 
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
-        => RootClient.Spot.Public.GetServerTimeAsync();
+        => RootClient.Spot.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
         => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
@@ -62,15 +64,6 @@ public abstract class RestApiBaseClient : RestApiClient
     }
 
     #region Internal Methods
-    internal Uri GetUrl(string version, string endpoint)
-    {
-        var address = ClientOptions.BaseAddress;
-        if (!string.IsNullOrWhiteSpace(version)) address = address.AppendPath($"v{version}");
-        if (!string.IsNullOrWhiteSpace(endpoint)) address = address.AppendPath(endpoint);
-
-        return new Uri(address);
-    }
-
     internal async Task<RestCallResult<T>> SendGenericRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? serialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         return await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, serialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);

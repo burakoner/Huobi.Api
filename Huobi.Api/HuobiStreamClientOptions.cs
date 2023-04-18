@@ -19,14 +19,14 @@ public class HuobiSpotStreamClientOptions
     // Stream Api Addresses
     public string PublicAddress { get; set; }
     public string PrivateAddress { get; set; }
-    public string OrderBookFeedAddress { get; set; }
+    public string MBPFeedAddress { get; set; }
 
     public HuobiSpotStreamClientOptions()
     {
         // Stream Api Addresses
         this.PublicAddress = HuobiApiAddresses.Default.StreamSpotPublicAddress;
         this.PrivateAddress = HuobiApiAddresses.Default.StreamSpotPrivateAddress;
-        this.OrderBookFeedAddress = HuobiApiAddresses.Default.StreamSpotOrderBookFeedAddress;
+        this.MBPFeedAddress = HuobiApiAddresses.Default.StreamSpotMBPFeedAddress;
     }
 }
 

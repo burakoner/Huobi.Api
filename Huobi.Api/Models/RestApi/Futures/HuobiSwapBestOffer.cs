@@ -1,5 +1,5 @@
 ﻿// .Converters;
-using Huobi.Api.Models.RestApi.Spot.Trading;
+using Huobi.Api.Models.RestApi.Spot;
 
 namespace Huobi.Api.Models.RestApi.Futures;
 

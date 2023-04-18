@@ -1,4 +1,6 @@
-﻿namespace Huobi.Api.Authentication
+﻿using Huobi.Api.Models.StreamApi;
+
+namespace Huobi.Api.Authentication
 {
     internal class HuobiAuthenticationRequest : HuobiAuthenticatedSubscribeRequest
     {
