@@ -7,7 +7,7 @@ global using ApiSharp.Enums;
 global using ApiSharp.Extensions;
 global using ApiSharp.Logging;
 global using ApiSharp.Models;
-global using ApiSharp.Stream;
+global using ApiSharp.WebSocket;
 global using ApiSharp.Throttling;
 global using ApiSharp.Throttling.Interfaces;
 global using Huobi.Api.Authentication;

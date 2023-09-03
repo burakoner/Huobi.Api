@@ -19,6 +19,11 @@ public class HuobiRestApiClientOptions : RestApiClientOptions
     /// </summary>
     public bool SignPublicRequests { get; set; }
 
+    /// <summary>
+    /// Huobi API Broker Id
+    /// </summary>
+    public string BrokerId { get; }
+
     public HuobiRestApiClientOptions() : this(null)
     {
     }

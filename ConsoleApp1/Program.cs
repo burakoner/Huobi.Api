@@ -1,7 +1,7 @@
 ﻿using ApiSharp.Extensions;
 using ApiSharp.Logging;
 using ApiSharp.Models;
-using ApiSharp.Stream;
+using ApiSharp.WebSocket;
 using Huobi.Api.Models.StreamApi.Futures;
 using Huobi.Api.Models.StreamApi.Spot;
 using Microsoft.Extensions.Logging;
@@ -19,6 +19,7 @@ internal class Program
         {
             SignPublicRequests = true,
             RawResponse = true,
+            ApiCredentials = new ApiSharp.Authentication.ApiCredentials("00000000-00000000-0000000000-00000", "00000000-00000000-0000000000-00000")
         });
 
         //var system_01 = await api.System.GetSystemStatusAsync();

@@ -1,6 +1,6 @@
 ﻿namespace Huobi.Api;
 
-public class HuobiStreamClientOptions : StreamApiClientOptions
+public class HuobiStreamClientOptions : WebSocketApiClientOptions
 {
     public HuobiFuturesStreamClientOptions FuturesStreamOptions { get; set; }
     public HuobiSpotStreamClientOptions SpotStreamOptions { get; set; }

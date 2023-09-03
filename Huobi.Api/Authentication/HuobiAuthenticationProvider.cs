@@ -29,12 +29,12 @@ internal class HuobiAuthenticationProvider : AuthenticationProvider
         query.Add("Signature", SignHMACSHA256($"{method}\n{uri.Host}\n{absolutePath}\n{paramString}", SignatureOutputType.Base64));
     }
 
-    public override void AuthenticateSocketApi()
+    public override void AuthenticateTcpSocketApi()
     {
         throw new NotImplementedException();
     }
 
-    public override void AuthenticateStreamApi()
+    public override void AuthenticateWebSocketApi()
     {
         throw new NotImplementedException();
     }

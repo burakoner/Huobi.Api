@@ -8,23 +8,41 @@
   <PropertyGroup>
     <PackageId>Huobi.Api</PackageId>
 	<Authors>Burak Öner</Authors>
-	<Version>1.0.0</Version>
-	<FileVersion>1.0.0</FileVersion>
-	<PackageVersion>1.0.0</PackageVersion>
-	<AssemblyVersion>1.0.0</AssemblyVersion>
-	<Description>Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible Huobi Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
+	<Version>1.0.6</Version>
+	<FileVersion>1.0.6</FileVersion>
+	<PackageVersion>1.0.6</PackageVersion>
+	<AssemblyVersion>1.0.6</AssemblyVersion>
+	<Description>Huobi API Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible Huobi Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<PackageTags>Binance;Coinbase;Kraken;KuCoin;Bitstamp;Gate;Huobi;OKX;Okex;ApiSharp;Api;Sharp;Coin;Token;BNB;BTC;ETH;Bitcoin;Ether;Ethereum;Rest;Web;Socket;Websocket;Stream;Webstream;Api;Client;Wrapper;Connector;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<NeutralLanguage>en</NeutralLanguage>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageReleaseNotes>
-		Version 1.0.0 - 17 Apr 2023
+		Version 1.0.6 - 03 Sep 2023
+		Version 1.0.1 - 25 Apr 2023
 	</PackageReleaseNotes>
 	<PackageIcon>Huobi.png</PackageIcon>
 	<PackageIconUrl />
 	<PackageProjectUrl>https://github.com/burakoner/Huobi.Api</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/burakoner/Huobi.Api</RepositoryUrl>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="ApiSharp" Version="1.2.6" />
+	<PackageReference Include="ApiSharp" Version="1.5.0" />
   </ItemGroup>
 
 </Project>

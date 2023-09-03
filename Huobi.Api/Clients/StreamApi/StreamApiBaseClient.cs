@@ -2,7 +2,7 @@
 
 namespace Huobi.Api.Clients.StreamApi;
 
-public abstract class StreamApiBaseClient : StreamApiClient
+public abstract class StreamApiBaseClient : WebSocketApiClient
 {
     // Internal
     internal Log Log { get => this.log; }
@@ -26,7 +26,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
         => new HuobiAuthenticationProvider(credentials);
 
-    protected override bool HandleQueryResponse<T>(StreamConnection connection, object request, JToken data, out CallResult<T> callResult)
+    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T> callResult)
     {
         callResult = new CallResult<T>(default(T)!);
         var v1Data = (data["data"] != null || data["tick"] != null) && data["rep"] != null;
@@ -84,7 +84,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return false;
     }
 
-    protected override bool HandleSubscriptionResponse(StreamConnection connection, StreamSubscription subscription, object request, JToken message, out CallResult<object> callResult)
+    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
     {
         callResult = null;
         var status = message["status"]?.ToString();
@@ -214,7 +214,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return false;
     }
 
-    protected override bool MessageMatchesHandler(StreamConnection connection, JToken message, object request)
+    protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, object request)
     {
         if (request is HuobiSubscribeRequest hRequest)
             return hRequest.Topic == message["ch"]?.ToString();
@@ -234,7 +234,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return false;
     }
 
-    protected override bool MessageMatchesHandler(StreamConnection connection, JToken message, string identifier)
+    protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, string identifier)
     {
         if (message.Type != JTokenType.Object)
             return false;
@@ -251,9 +251,9 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return false;
     }
 
-    protected override abstract Task<CallResult<bool>> AuthenticateAsync(StreamConnection connection);
+    protected override abstract Task<CallResult<bool>> AuthenticateAsync(WebSocketConnection connection);
 
-    protected async Task<CallResult<bool>> SpotAuthenticateAsync(StreamConnection connection)
+    protected async Task<CallResult<bool>> SpotAuthenticateAsync(WebSocketConnection connection)
     {
         if (AuthenticationProvider == null)
             return new CallResult<bool>(new NoApiCredentialsError());
@@ -286,7 +286,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return result;
     }
 
-    protected async Task<CallResult<bool>> FuturesAuthenticateAsync(StreamConnection connection)
+    protected async Task<CallResult<bool>> FuturesAuthenticateAsync(WebSocketConnection connection)
     {
         if (AuthenticationProvider == null)
             return new CallResult<bool>(new NoApiCredentialsError());
@@ -319,7 +319,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return result;
     }
 
-    protected async Task<CallResult<bool>> SwapAuthenticateAsync(StreamConnection connection)
+    protected async Task<CallResult<bool>> SwapAuthenticateAsync(WebSocketConnection connection)
     {
         if (AuthenticationProvider == null)
             return new CallResult<bool>(new NoApiCredentialsError());
@@ -352,7 +352,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return result;
     }
 
-    protected override async Task<bool> UnsubscribeAsync(StreamConnection connection, StreamSubscription subscription)
+    protected override async Task<bool> UnsubscribeAsync(WebSocketConnection connection, WebSocketSubscription subscription)
     {
         var result = false;
         if (subscription.Request is HuobiSubscribeRequest hRequest)
@@ -430,7 +430,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
     #endregion
 
     #region Internal Methods
-    internal void DeserializeAndInvoke<T>(StreamDataEvent<JToken> data, Action<StreamDataEvent<T>> action, string symbol = null)
+    internal void DeserializeAndInvoke<T>(WebSocketDataEvent<JToken> data, Action<WebSocketDataEvent<T>> action, string symbol = null)
     {
         var obj = Deserialize<T>(data.Data["data"]!);
         if (!obj)
@@ -453,7 +453,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
         return streamReader.ReadToEnd();
     }
 
-    private void PingHandlerV1(StreamMessageEvent messageEvent)
+    private void PingHandlerV1(WebSocketMessageEvent messageEvent)
     {
         var v1Ping = messageEvent.JsonData["ping"] != null;
 
@@ -461,7 +461,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
             messageEvent.Connection.Send(new HuobiPingResponse(messageEvent.JsonData["ping"]!.Value<long>()));
     }
 
-    private void PingHandlerV2(StreamMessageEvent messageEvent)
+    private void PingHandlerV2(WebSocketMessageEvent messageEvent)
     {
         var v2Ping = messageEvent.JsonData["action"]?.ToString() == "ping";
 
@@ -469,7 +469,7 @@ public abstract class StreamApiBaseClient : StreamApiClient
             messageEvent.Connection.Send(new HuobiPingAuthResponse(messageEvent.JsonData["data"]!["ts"]!.Value<long>()));
     }
 
-    private void PingHandlerV3(StreamMessageEvent messageEvent)
+    private void PingHandlerV3(WebSocketMessageEvent messageEvent)
     {
         var v3Ping = messageEvent.JsonData["op"]?.ToString() == "ping";
 

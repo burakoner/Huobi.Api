@@ -16,7 +16,7 @@ public class StreamApiSwapClient : StreamApiBaseClient
         _baseAddressSystemStatus = ClientOptions.SwapStreamOptions.SystemStatusAddress;
     }
 
-    protected override Task<CallResult<bool>> AuthenticateAsync(StreamConnection connection)
+    protected override Task<CallResult<bool>> AuthenticateAsync(WebSocketConnection connection)
         => SwapAuthenticateAsync(connection);
 
 
